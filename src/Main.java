@@ -15,8 +15,7 @@ public class Main {
     private static final String NEW_DIRECTORY = "C:/Users/roma/*****";
     private static final String ALL_PHOTOS = "C:/Users/roma_/*****";
     private static final String NEEDED_PHOTOS = "C:/Users/roma_/*****";
-
-    private static final String RAW_PHOTO_EXTENTION = ".CR2";
+    private static final String RAW_PHOTO_EXTENSION = ".CR2";
 
     private static AtomicLong neededCopiedCount = new AtomicLong(0);
     private static AtomicLong generatedUniqueNamesCount = new AtomicLong(0);
@@ -75,7 +74,8 @@ public class Main {
 
     private static void filterAndGenerateFiles(List<File> neededJpgFiles, List<File> allFiles) {
         for (File jpg : neededJpgFiles) {
-            String cr2FileName = getOnlyFileNameWithNumberWithoutDuplicatedNumbers(jpg.getName()).concat(".CR2");
+            String cr2FileName = getOnlyFileNameWithNumberWithoutDuplicatedNumbers(jpg.getName())
+                    .concat(RAW_PHOTO_EXTENSION);
             for (File rawOrJpg : allFiles) {
                 generateIfSameFile(cr2FileName, rawOrJpg);
             }
@@ -126,7 +126,7 @@ public class Main {
 
     private static String generateRandomFileName(String fileName) {
         Long randomNumber = new Random().nextLong();
-        return fileName.replace(".CR2", randomNumber.toString().concat(".CR2"));
+        return fileName.replace(RAW_PHOTO_EXTENSION, randomNumber.toString().concat(RAW_PHOTO_EXTENSION));
     }
 
     private static void copyFile(File copy, File newFromCopy) {
